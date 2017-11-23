@@ -54,6 +54,10 @@ $config['db_user'] = 'dev';
 $config['db_pass'] = '12345';
 $config['db_host'] = 'localhost';
 
+/* Cron */
+$config['cron_duration_hours'] = '24';
+$config['cron_periodicity'] = '60';
+
 function config( $key ) {
 
     global $config;

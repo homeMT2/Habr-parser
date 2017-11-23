@@ -1,10 +1,14 @@
 <?php
 session_start();
 
+include_once '../config/config.php';
+
+$site_url = config('site_url');
+
 // https://habrahabr.ru/post/132609/
 
-$num_starts = 60;
-$hours = 1;
+$num_starts = config( 'cron_duration_hours' );
+$hours = config( 'cron_periodicity' );
 $time_sec = $hours * 3600;
 $time_to_start = array();
 ignore_user_abort(1);
@@ -42,10 +46,10 @@ do {
 
     if (in_array($nowtime, $_SESSION["num_st"])) {
 
-        $http = fsockopen('http://localhost:8888/habr/',80);
+        $http = fsockopen( $site_url, 80);
 
-        fputs($http, "GET http://localhost:8888/habr/get?".session_name()."=".session_id()."&nowtime=$nowtime HTTP/1.0\r\n");
-        fputs($http, "Host: http://localhost:8888/habr/\r\n");
+        fputs($http, "GET ' . $site_url . 'get?".session_name()."=".session_id()."&nowtime=$nowtime HTTP/1.0\r\n");
+        fputs($http, "Host: ' . $site_url . '\r\n");
         fputs($http, "\r\n");
         fclose($http);
     }
@@ -62,11 +66,11 @@ do {
 
 }
 
-while($exec_time < ($max_exec - 5));
+while( $exec_time < ($max_exec - 5) );
 
-$http = fsockopen('test.ru',80);
+$http = fsockopen( $site_url, 80 );
 
-fputs($http, "GET http://localhost:8888/habr/get?".session_name()."=".session_id()."&bu=$max_exec HTTP/1.0\r\n");
-fputs($http, "Host: http://localhost:8888/habr/\r\n");
+fputs($http, "GET ' . $site_url . 'get?".session_name()."=".session_id()."&bu=$max_exec HTTP/1.0\r\n");
+fputs($http, "Host: ' . $site_url . '\r\n");
 fputs($http, "\r\n");
 fclose($http);
