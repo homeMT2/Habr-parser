@@ -13,9 +13,20 @@ if( $way == '/' ) {
     get_page( 'home' );
 }
 else if( $way == '/get' ) {
-    $posts_add = 0;
-    $tags_add  = 0;
+    save_posts();
+    get_page( 'get' );
+}
+else if( $way == '/post/' . helper_url_section(2) &&
+         is_numeric( helper_url_section(2) ) &&
+         helper_url_section(2) > 0 )
+{
+    get_page( 'post' );
+}
+else {
+    get_page( '404' );
+}
 
+function save_posts() {
     $posts = parser();
 
     for( $i = 0; $i < count( $posts ); $i++ ) {
@@ -34,7 +45,6 @@ else if( $way == '/get' ) {
 
                     if( $insert_tag != FALSE ) {
                         array_push( $tag_ids, $insert_tag );
-                        $tags_add++;
                     }
 
                 }
@@ -47,27 +57,7 @@ else if( $way == '/get' ) {
 
             $insert_post = sql_insert_post( $posts[$i] );
 
-            if( $insert_post != FALSE ) {
-                $posts_add++;
-            }
+            if( $insert_post != FALSE ) {}
         }
     }
-
-    $page_result = '';
-    $page_result .= '<br><br>';
-    $page_result .= 'Posts Add: ' . $posts_add;
-    $page_result .= '<br>';
-    $page_result .= 'Tags Add: ' . $tags_add;
-    $page_result .= '<br><br>';
-
-    get_page( 'get' );
-}
-else if( $way == '/post/' . helper_url_section(2) &&
-         is_numeric( helper_url_section(2) ) &&
-         helper_url_section(2) > 0 )
-{
-    get_page( 'post' );
-}
-else {
-    get_page( '404' );
 }

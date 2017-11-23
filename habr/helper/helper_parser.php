@@ -117,8 +117,8 @@ function parser_get_post( $post_url ) {
 
 function parser() {
 
-    $start = 1;
-    $end = 2;
+    $start = config('parser_start');
+    $end = config('parser_end');
 
     $pages_urls = parser_get_pages_urls( $start, $end );
     $posts_urls = parser_get_posts_urls( $pages_urls );

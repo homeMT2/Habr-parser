@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Parser | Get</title>
-    </head>
+<div style="display: none;">
 
-    <body>
-        <div>
-            <?php
-                global $page_result;
-                echo $page_result;
-            ?>
-        </div>
-    </body>
-</html>
+</div>

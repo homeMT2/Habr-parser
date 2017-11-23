@@ -25,6 +25,7 @@ $config['dir_controller']  = './controller/';
 $config['dir_helper']      = './helper/';
 $config['dir_assets']      = './assets/';
 $config['dir_model']       = './model/';
+$config['dir_cron']        = './cron/';
 $config['dir_view']        = './view/';
 $config['dir_lib']         = './lib/';
 
@@ -34,6 +35,7 @@ $config['file_helper_parser']   = $config['dir_helper']     . 'helper_parser.php
 $config['file_db']              = $config['dir_model']      . 'db.php';
 $config['file_html_parser']     = $config['dir_lib']        . 'html_parser.php';
 $config['file_support']         = $config['dir_controller'] . 'support.php';
+$config['file_cron']            = $config['dir_cron']       . 'cron.php';
 
 
 /* Page name */
@@ -54,7 +56,15 @@ $config['db_user'] = 'dev';
 $config['db_pass'] = '12345';
 $config['db_host'] = 'localhost';
 
+/* Parser */
+$config['parser_start'] = 0;
+$config['parser_end']   = 1;
+
 /* Cron */
+// In seconds
+$config['cron_interval'] = 60;
+
+// In progress ...
 $config['cron_duration_hours'] = '24';
 $config['cron_periodicity'] = '60';
 
@@ -91,4 +101,5 @@ function include_files() {
     include_once $config['file_helper_parser'];
     include_once $config['file_db'];
     include_once $config['file_support'];
+    include_once $config['file_cron'];
 }
